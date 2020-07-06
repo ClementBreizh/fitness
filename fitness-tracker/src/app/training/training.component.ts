@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControlDirective } from '@angular/forms';
+
+interface Exercice {
+}
 
 @Component({
   selector: 'app-training',
@@ -6,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./training.component.css']
 })
 export class TrainingComponent implements OnInit {
+
+  ongoingTraining = false;
 
   constructor() { }
 
