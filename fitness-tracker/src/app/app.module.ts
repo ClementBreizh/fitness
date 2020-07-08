@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AngularFireModule } from "angularfire2";
+import { AngularFirestoreModule } from "angularfire2/firestore";
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from "./material.module";
@@ -19,7 +22,14 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { StopTrainingComponent } from "./training/current-training/stop-training.components";
 import { AuthService } from "./auth/auth.service"
 import { ExerciseService } from "./training/exercise.service";
+import { environment } from '../environments/environment';
+import { registerLocaleData } from '@angular/common';
 
+import localeFr from '@angular/common/locales/fr';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntlFr } from "./utils/utils-paginator";
+
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -33,7 +43,7 @@ import { ExerciseService } from "./training/exercise.service";
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    StopTrainingComponent
+    StopTrainingComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,9 +51,14 @@ import { ExerciseService } from "./training/exercise.service";
     MaterialModule,
     AppRoutinModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
-  providers: [AuthService, ExerciseService],
+  providers: [AuthService, ExerciseService, 
+    {provide: LOCALE_ID, useValue: "fr-FR" },
+    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent]
 })

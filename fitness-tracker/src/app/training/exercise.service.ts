@@ -7,7 +7,7 @@ export class ExerciseService {
     private availableExercises: Exercise[] = [
         { id: 'abdos', name: 'Abdos', duration: 50},
         { id: 'pompes', name: 'Pompes', duration: 50 },
-        { id: 'gainage', name: 'minutes de Gainage', duration: 2 },
+        { id: 'gainage', name: 'Gainage (min)', duration: 2 },
         { id: 'burpees', name: 'Burpees', duration: 30 }
     ];
 
