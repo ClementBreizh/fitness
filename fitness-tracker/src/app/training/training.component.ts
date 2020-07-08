@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { ExerciseService } from "./exercise.service";
 
 interface Exercice {
 }
@@ -11,10 +14,21 @@ interface Exercice {
 export class TrainingComponent implements OnInit {
 
   ongoingTraining = false;
+  exerciseSubsciption: Subscription;
 
-  constructor() { }
+  constructor(private exerciseService: ExerciseService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.exerciseSubsciption = 
+    this.exerciseService.exerciseChanged.subscribe(
+      exercise => {
+        if (exercise) {
+          this.ongoingTraining = true;
+        } else {
+          this.ongoingTraining = false;
+        }
+      }
+    );
   }
 
 }

@@ -1,18 +1,20 @@
 <section class="newTraining" fxLayout fxLayoutAlign="center">
-    <mat-card class="trainingCard" fxFlex.xs="100%" fxFlex="400px">
-        <mat-card-title fxLayoutAlign="center">Faites votre choix</mat-card-title>
-        <mat-card-content fxLayoutAlign="center">
-            <mat-form-field>
-                <mat-label>Exercices disponibles</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let exercise of exercises">
-                        <p>{{ exercise.duration }} {{ exercise.name }}</p>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions fxLayoutAlign="center">
-            <button type="submit" (click)="onStartTraining()" mat-raised-button color="primary">C'est parti !</button>
-        </mat-card-actions>
-    </mat-card>
+    <form (ngSubmit)="onStartTraining(f)" #f="ngForm">
+        <mat-card class="trainingCard" fxFlex.xs="100%" fxFlex="400px">
+            <mat-card-title fxLayoutAlign="center">Faites votre choix</mat-card-title>
+            <mat-card-content fxLayoutAlign="center">
+                <mat-form-field>
+                    <!-- <mat-label>Exercices disponibles</mat-label> -->
+                    <mat-select placeholder="Exercices disponibles" ngModel name="choiceExercise" required>
+                        <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
+                            {{ exercise.duration }} {{ exercise.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions fxLayoutAlign="center">
+                <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">C'est parti !</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
 </section>

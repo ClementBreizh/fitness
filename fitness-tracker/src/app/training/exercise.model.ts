@@ -5,4 +5,6 @@ export interface Exercise {
     duration: number;
     date?: Date;
     state?: 'fini' | 'annulé' | null;
+    minutes?: number,
+    secondes?: number
 }
