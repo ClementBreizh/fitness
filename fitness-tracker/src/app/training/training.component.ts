@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlDirective } from '@angular/forms';
 
 interface Exercice {
 }

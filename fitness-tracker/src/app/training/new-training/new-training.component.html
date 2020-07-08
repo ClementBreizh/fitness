@@ -5,17 +5,8 @@
             <mat-form-field>
                 <mat-label>Exercices disponibles</mat-label>
                 <mat-select>
-                    <mat-option value="abdos">
-                        50 x Abdos
-                    </mat-option>
-                    <mat-option value="pompes">
-                        50 x Pompes
-                    </mat-option>
-                    <mat-option value="gainage">
-                        2 min Gainage
-                    </mat-option>
-                    <mat-option value="burpees">
-                        30 x Burpees
+                    <mat-option *ngFor="let exercise of exercises">
+                        <p>{{ exercise.duration }} {{ exercise.name }}</p>
                     </mat-option>
                 </mat-select>
             </mat-form-field>
