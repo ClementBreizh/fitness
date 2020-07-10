@@ -97,7 +97,7 @@ export class ExerciseService {
     }
 
 
-    // TODO : faire une fois l'auth côté FIREBASE en place 
+    // TODO : pourquoi ca ne fonctionne pas ????
     deletePastExercice(id: string) {
         this.db.collection('pastExercices').doc(id).delete()
             .then(function () {

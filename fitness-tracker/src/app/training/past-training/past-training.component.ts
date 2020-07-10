@@ -7,6 +7,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatPaginatorIntlFr } from 'src/app/utils/utils-paginator';
 import { Subscription } from 'rxjs';
 
+import { AngularFireDatabase, AngularFireList }
+  from 'angularfire2/database';
+
 @Component({
   selector: 'app-past-training',
   templateUrl: './past-training.component.html',
@@ -22,8 +25,10 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private exerciseService: ExerciseService) { }
+  constructor(private exerciseService: ExerciseService, private af : AngularFireDatabase) { }
 
+  afList: AngularFireList<Exercise[]>;
+  
   ngOnInit() {
     this.exercisesSubscription = this.exerciseService.finishExercisesChanged
       .subscribe((exercises: Exercise[]) => {
@@ -48,8 +53,11 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  deletePast(id: string) {
-    this.exerciseService.deletePastExercice(id);
-  }
+  // deletePast(id: string) {
+  //   this.exerciseService.deletePastExercice(id);
+  // }
 
+  deletePast(id: String) {
+    this.af.object('/pastExercices' + id).remove();
+  }
 }
