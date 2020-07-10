@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  displayedColumns = ['date', 'duration', 'name','timer', 'state', 'edit'];
+  displayedColumns = ['date', 'duration', 'name', 'timer', 'state', 'edit'];
   dataSource = new MatTableDataSource<Exercise>();
   customPaginator = new MatPaginatorIntlFr;
   private exercisesSubscription = new Subscription;
@@ -25,10 +25,10 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private exerciseService: ExerciseService) { }
 
   ngOnInit() {
-     this.exercisesSubscription = this.exerciseService.finishExercisesChanged
-    .subscribe((exercises: Exercise[]) => {
-      this.dataSource.data = exercises;
-    });
+    this.exercisesSubscription = this.exerciseService.finishExercisesChanged
+      .subscribe((exercises: Exercise[]) => {
+        this.dataSource.data = exercises;
+      });
     this.exerciseService.fetchGetCompletOrCancelExercise();
   }
   ngAfterViewInit() {
@@ -38,11 +38,14 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   doFilter(filterValue: string) {
-    this.dataSource.filter= filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnDestroy() {
-    this.exercisesSubscription.unsubscribe();
+    if (this.exercisesSubscription) {
+      this.exercisesSubscription.unsubscribe();
+    }
+
   }
 
   deletePast(id: string) {

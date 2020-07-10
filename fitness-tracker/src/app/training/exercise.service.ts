@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { map } from "rxjs/operators/map";
 import { Injectable } from '@angular/core';
+import { uiService } from '../utils/utils-ui-service';
 
 
 
@@ -14,10 +15,12 @@ export class ExerciseService {
     finishExercisesChanged = new Subject<Exercise[]>();
     private availableExercises: Exercise[] = [];
     private runningExercise: Exercise;
-    private afList: AngularFireList<any>[];
     private fdSubs: Subscription[] = [];
 
-    constructor(private db: AngularFirestore, private af: AngularFireDatabase) { }
+    constructor(
+        private db: AngularFirestore, 
+        private af: AngularFireDatabase,
+        private uiService: uiService) { }
 
 
     fetchAvailableExercices() {
@@ -34,6 +37,11 @@ export class ExerciseService {
             })).subscribe((exercises: Exercise[]) => {
                 this.availableExercises = exercises;
                 this.exercisesChanged.next([...this.availableExercises]);
+            }, error => {
+                this.uiService.showSnackbar(
+                    'Le chargement des exercices à échouer merci de patienter',
+                    null ,5000);
+                this.exerciseChanged.next(null);    
             }));
     }
 

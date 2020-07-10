@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
   templateUrl: './new-training.component.html',
   styleUrls: ['./new-training.component.css']
 })
-export class NewTrainingComponent implements OnInit, OnDestroy {
+export class NewTrainingComponent implements OnInit, OnDestroy, OnDestroy {
 
   exercises: Exercise[];
   exercisesSubscription = new Subscription;
@@ -21,7 +21,7 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
       this.exerciseService.exercisesChanged.subscribe(
         exercises => (this.exercises = exercises)
       );
-    this.exerciseService.fetchAvailableExercices();
+    this.fetchExercises();
   }
 
   onStartTraining(form: NgForm) {
@@ -29,8 +29,15 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
 
   }
 
+  fetchExercises() {
+    this.exerciseService.fetchAvailableExercices();
+  }
+
   ngOnDestroy() {
-    this.exercisesSubscription.unsubscribe();
+    if (this.exercisesSubscription) {
+      this.exercisesSubscription.unsubscribe();
+    }
+
   }
 
 }
