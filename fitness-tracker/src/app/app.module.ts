@@ -28,6 +28,8 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorIntlFr } from "./utils/utils-paginator";
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 registerLocaleData(localeFr);
 
@@ -53,11 +55,13 @@ registerLocaleData(localeFr);
     FlexLayoutModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [AuthService, ExerciseService, 
     {provide: LOCALE_ID, useValue: "fr-FR" },
-    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr}
+    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr},
+    AngularFireDatabase
   ],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent]

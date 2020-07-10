@@ -3,49 +3,62 @@ import { AuthData } from "./auth-data.model";
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { ExerciseService } from '../training/exercise.service';
 
 @Injectable()
 export class AuthService {
-    private user: User;
+    private isAuthenticated = false;
     authChange = new Subject<boolean>();
 
-    constructor(private router: Router) {}
-
+    constructor(private router: Router, private afAuth: AngularFireAuth, private exerciseService: ExerciseService) { }
 
     registerUser(authData: AuthData) {
-        this.user = {
-            email: authData.email,
-            userId: Math.round(Math.random() *10000).toString()
-        };
-        this.authSuccess();
-    }    
+        this.afAuth.auth.createUserWithEmailAndPassword(
+            authData.email.trim(),
+            authData.password
+        ).then(result => {
+            console.log(result);
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    initAuthListener() {
+        this.afAuth.authState.subscribe(user => {
+            if (user) {
+                this.isAuthenticated = true;
+                this.authChange.next(true);
+                this.router.navigate(['/training']);
+            } else {
+                this.exerciseService.cancelSubscription();
+                this.authChange.next(false);
+                this.router.navigate(['/login']);
+                this.isAuthenticated = false;
+            }
+        });
+    }
+
 
     login(authData: AuthData) {
-        this.user = {
-            email: authData.email,
-            userId: Math.round(Math.random() *10000).toString()
-        };
-        this.authSuccess();
+        this.afAuth.auth.signInWithEmailAndPassword(
+            authData.email.trim(),
+            authData.password
+        ).then(result => {
+            console.log(result);
+        }).catch(error => {
+            console.log(error);
+        });
     }
 
     logout() {
-        this.user = null;
-        this.authChange.next(false);
-        this.router.navigate(['/login']);
+        this.afAuth.auth.signOut();
+
     }
 
-    getUser() {
-        return { ...this.user };
-        // permet de retourner un "nouvel" user sans manipuler
-        // celui du service mais ayant les mêmes attributs
-    }
+
 
     isAuth() {
-        return this.user != null;
-    }
-
-    private authSuccess() {
-        this.authChange.next(true);
-        this.router.navigate(['/training']);
+        return this.isAuthenticated;
     }
 }

@@ -4,9 +4,8 @@
             <mat-card-title fxLayoutAlign="center">Faites votre choix</mat-card-title>
             <mat-card-content fxLayoutAlign="center">
                 <mat-form-field>
-                    <!-- <mat-label>Exercices disponibles</mat-label> -->
                     <mat-select placeholder="Exercices disponibles" ngModel name="choiceExercise" required>
-                        <mat-option *ngFor="let exercise of exercises | async" [value]="exercise.name">
+                        <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
                             {{ exercise.duration }} {{ exercise.name }}
                         </mat-option>
                     </mat-select>

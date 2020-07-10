@@ -12,7 +12,7 @@
             Date
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-            {{ element.date | date }}
+            {{ element.date.toDate() | date }}
         </mat-cell>
     </ng-container>
 
@@ -34,6 +34,15 @@
         </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="timer">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Temps
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{ element.minutes | number }} min(s) {{ element.secondes | number }} secs
+        </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
             Status
@@ -43,12 +52,14 @@
         </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="timer">
+    <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Temps
+            Supprimer
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
-            {{ element.minutes | number }} min(s) {{ element.secondes | number }} secs
+            <button (click)="deletePast(element.id)" mat-icon-button>
+                <mat-icon class="icon-menu">delete</mat-icon>
+            </button>
         </mat-cell>
     </ng-container>
 

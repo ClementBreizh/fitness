@@ -1,21 +1,23 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Exercise } from '../exercise.model';
 import { ExerciseService } from '../exercise.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatPaginatorIntlFr } from 'src/app/utils/utils-paginator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-past-training',
   templateUrl: './past-training.component.html',
   styleUrls: ['./past-training.component.css']
 })
-export class PastTrainingComponent implements OnInit, AfterViewInit {
+export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  displayedColumns = ['date', 'duration', 'name', 'state', 'timer'];
+  displayedColumns = ['date', 'duration', 'name','timer', 'state', 'edit'];
   dataSource = new MatTableDataSource<Exercise>();
   customPaginator = new MatPaginatorIntlFr;
+  private exercisesSubscription = new Subscription;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -23,7 +25,11 @@ export class PastTrainingComponent implements OnInit, AfterViewInit {
   constructor(private exerciseService: ExerciseService) { }
 
   ngOnInit() {
-    this.dataSource.data = this.exerciseService.getCompletOrCancelExercise();
+     this.exercisesSubscription = this.exerciseService.finishExercisesChanged
+    .subscribe((exercises: Exercise[]) => {
+      this.dataSource.data = exercises;
+    });
+    this.exerciseService.fetchGetCompletOrCancelExercise();
   }
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -35,5 +41,12 @@ export class PastTrainingComponent implements OnInit, AfterViewInit {
     this.dataSource.filter= filterValue.trim().toLowerCase();
   }
 
-  
+  ngOnDestroy() {
+    this.exercisesSubscription.unsubscribe();
+  }
+
+  deletePast(id: string) {
+    this.exerciseService.deletePastExercice(id);
+  }
+
 }
