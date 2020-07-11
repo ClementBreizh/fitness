@@ -1,5 +1,4 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
 import { Subscription, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Store } from "@ngrx/store";

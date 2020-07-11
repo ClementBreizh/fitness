@@ -1,4 +1,3 @@
-import { Action } from "@ngrx/store";
 import { AuthAction, SET_AUTH, SET_UNAUTH } from "./auth.actions";
 
 

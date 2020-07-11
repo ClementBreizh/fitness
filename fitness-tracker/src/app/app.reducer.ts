@@ -1,7 +1,6 @@
 import * as fromUi from './utils/utils-iu.reducer';
 import * as fromAuth from './auth/auth.reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from "@ngrx/store";
-import { auth } from 'firebase';
 
 export interface State {
     ui: fromUi.State;
