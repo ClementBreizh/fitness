@@ -5,6 +5,8 @@ import { uiService } from 'src/app/utils/utils-ui-service';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from "@ngrx/store";
 import * as fromRoot from 'src/app/app.reducer';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgetpwdComponent } from "./forgetpwd/forgetpwd.component";
 
 
 @Component({
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
      private uiService: uiService,
-      private store: Store<fromRoot.State>) { }
+      private store: Store<fromRoot.State>,
+      private dialog: MatDialog) { }
 
   ngOnInit() {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
@@ -41,5 +44,9 @@ export class LoginComponent implements OnInit {
       email: form.value.email,
       password: form.value.password
     });
-  }S
+  }
+
+  forgetPassword() {
+    const dialogRef = this.dialog.open(ForgetpwdComponent);
+  }
 }

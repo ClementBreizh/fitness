@@ -5,6 +5,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { map } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { uiService } from '../utils/utils-ui-service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 
@@ -16,13 +17,12 @@ export class ExerciseService {
     private availableExercises: Exercise[] = [];
     private runningExercise: Exercise;
     private fdSubs: Subscription[] = [];
-    private itemsRef;
-    private items;
 
     constructor(
-        private db: AngularFirestore, 
+        private db: AngularFirestore,
         private af: AngularFireDatabase,
-        private uiService: uiService) { }
+        private uiService: uiService,
+        private afAuth: AngularFireAuth) { }
 
 
     fetchAvailableExercices() {
@@ -43,8 +43,8 @@ export class ExerciseService {
             }, error => {
                 this.uiService.showSnackbar(
                     'Le chargement des exercices à échouer merci de patienter',
-                    null ,5000);
-                this.exerciseChanged.next(null);    
+                    null, 5000);
+                this.exerciseChanged.next(null);
             }));
     }
 
@@ -87,8 +87,8 @@ export class ExerciseService {
     }
 
     fetchGetCompletOrCancelExercise() {
-       this.fdSubs.push(this.db
-            .collection('pastExercices')
+        this.fdSubs.push(this.db
+            .collection('pastExercices').doc(this.afAuth.auth.currentUser.uid).collection('UserPastExercices')
             .valueChanges()
             .subscribe((exercises: Exercise[]) => {
                 this.finishExercisesChanged.next(exercises);
@@ -96,7 +96,7 @@ export class ExerciseService {
     }
 
     private addDataToDatabase(exercise: Exercise) {
-        this.db.collection('pastExercices').add(exercise);
+        this.db.collection('pastExercices').doc(this.afAuth.auth.currentUser.uid).collection('UserPastExercices').add(exercise);
     }
 
     cancelSubscription() {

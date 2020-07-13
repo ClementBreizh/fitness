@@ -17,6 +17,9 @@
 
     <button *ngIf="!(isLoading$ | async)" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Se connecter</button>
     <mat-spinner *ngIf="(isLoading$ | async)"></mat-spinner>
+
+    <button (click)="forgetPassword()" mat-raised-button color="primary" >Mot de passe oublié ?
+    </button>
   </form>
 
 </section>

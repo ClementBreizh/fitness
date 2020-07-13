@@ -1,0 +1,13 @@
+<section class="login-form">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <mat-form-field>
+        <input matInput type="email" placeholder="Votre email" ngModel name="email" email required #emailInput="ngModel">
+        <mat-error *ngIf="emailInput.hasError('required')">
+          Le champ ne doit pas être vide</mat-error>
+        <mat-error *ngIf="!emailInput.hasError('required')">
+          Email invalide</mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true">Réinitialiser
+      </button>
+    </form>  
+  </section>

@@ -8,16 +8,20 @@ import { Store } from "@ngrx/store";
 import * as fromRoot from '../app.reducer';
 import * as UI from '../utils/utils-ui.actions'
 import * as Auth from '../auth/auth.actions';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Subscription } from 'rxjs';
 
 @Injectable()
 export class AuthService {
     private isAuthenticated = false;
+    private fdSubs: Subscription[] = [];
 
     constructor(private router: Router,
         private afAuth: AngularFireAuth,
         private exerciseService: ExerciseService,
         private uiService: uiService,
-        private store: Store<fromRoot.State>) {}
+        private db: AngularFirestore,
+        private store: Store<fromRoot.State>) { }
 
     registerUser(authData: AuthData) {
         this.store.dispatch(new UI.StartLoading());
@@ -36,6 +40,15 @@ export class AuthService {
         });
     }
 
+    resetPassword(email: string) {
+        this.afAuth.auth.sendPasswordResetEmail(
+            email
+            ).catch(error => {
+                this.uiService.showSnackbar(
+                    'Cet email ne correspond pas à un compte existant', null, 5000);
+            });
+    }
+
     initAuthListener() {
         this.afAuth.authState.subscribe(user => {
             if (user) {
@@ -49,7 +62,6 @@ export class AuthService {
             }
         });
     }
-
 
     login(authData: AuthData) {
         this.store.dispatch(new UI.StartLoading());
@@ -71,4 +83,5 @@ export class AuthService {
     logout() {
         this.afAuth.auth.signOut();
     }
+
 }

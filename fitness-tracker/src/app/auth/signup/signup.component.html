@@ -8,11 +8,11 @@
         Email invalide</mat-error>
     </mat-form-field>
 
-    <!-- <mat-form-field>
-      <input matInput type="text" placeholder="Votre prénom" ngModel name="prenom" required #prenomInput="ngModel">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Votre prénom" ngModel name="prenom" required #prenomInput="ngModel" minlength="3">
       <mat-error *ngIf="prenomInput.hasError('required')">
-        Le champ ne doit pas être vide</mat-error>
-    </mat-form-field> -->
+        Doit comporter au moins 3 caractères</mat-error>
+    </mat-form-field>
 
 
     <mat-form-field hintLabel="Doit comporter au moins 8 caractères">

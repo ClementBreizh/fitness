@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { StopTrainingComponent } from './stop-training.components';
 import { ExerciseService } from '../exercise.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-current-training',
@@ -14,11 +15,12 @@ export class CurrentTrainingComponent implements OnInit {
   secondes = 0;
   minutes = 0;
   timer: number;
+ 
 
   @Output() trainingExit = new EventEmitter();
   
 
-  constructor(private dialog: MatDialog, private exerciseService: ExerciseService) { }
+  constructor(private dialog: MatDialog, private exerciseService: ExerciseService, private authService: AuthService) { }
 
   ngOnInit() {
     this.startTimer();

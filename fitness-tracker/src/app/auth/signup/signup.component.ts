@@ -4,7 +4,6 @@ import { AuthService } from '../auth.service';
 import { Observable } from 'rxjs';
 import { Store } from "@ngrx/store";
 import * as fromRoot from 'src/app/app.reducer';
-import { User } from '../user.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
@@ -16,7 +15,7 @@ export class SignupComponent implements OnInit {
 
   maxDate;
   isLoading$: Observable<boolean>;
-  userToSave: User;
+  userInfo;
 
   constructor(
     private authService: AuthService,
@@ -33,7 +32,7 @@ export class SignupComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.authService.registerUser({
       email: form.value.email,
-      password: form.value.password
+      password: form.value.password,
     });
   }
 }

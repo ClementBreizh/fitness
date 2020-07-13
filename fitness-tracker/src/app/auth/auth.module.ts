@@ -4,11 +4,13 @@ import { LoginComponent } from './login/login.component';
 import { SharedModule } from "../utils/shared.modules";
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthRoutingModule } from "./auth-routing.module";
+import { ForgetpwdComponent } from './login/forgetpwd/forgetpwd.component';
 
 @NgModule({
     declarations: [
         SignupComponent,
-        LoginComponent
+        LoginComponent,
+        ForgetpwdComponent
     ],
     imports: [
         SharedModule,
