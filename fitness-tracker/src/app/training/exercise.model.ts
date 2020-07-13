@@ -4,7 +4,7 @@ export interface Exercise {
     name: string;
     duration: number;
     date?: Date;
-    state?: 'fini' | 'annulé' | null;
+    state?: 'oui' | 'non' | null;
     minutes?: number,
     secondes?: number
 }

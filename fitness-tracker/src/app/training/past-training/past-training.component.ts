@@ -17,7 +17,7 @@ import { AngularFireDatabase, AngularFireList }
 })
 export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  displayedColumns = ['date', 'duration', 'name', 'timer', 'state', 'edit'];
+  displayedColumns = ['date', 'duration', 'name', 'timer', 'state'];
   dataSource = new MatTableDataSource<Exercise>();
   customPaginator = new MatPaginatorIntlFr;
   private exercisesSubscription = new Subscription;
@@ -51,13 +51,5 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
       this.exercisesSubscription.unsubscribe();
     }
 
-  }
-
-  // deletePast(id: string) {
-  //   this.exerciseService.deletePastExercice(id);
-  // }
-
-  deletePast(id: String) {
-    this.af.object('/pastExercices' + id).remove();
   }
 }

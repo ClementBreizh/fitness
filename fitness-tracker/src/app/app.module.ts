@@ -24,6 +24,7 @@ import { AuthModule } from "./auth/auth.module";
 import { StoreModule } from "@ngrx/store";
 import { reducers } from "./app.reducer";
 
+
 registerLocaleData(localeFr);
 
 @NgModule({

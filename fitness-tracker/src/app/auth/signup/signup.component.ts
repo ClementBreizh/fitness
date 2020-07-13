@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { AuthService } from '../auth.service';
-import { uiService } from 'src/app/utils/utils-ui-service';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from "@ngrx/store";
 import * as fromRoot from 'src/app/app.reducer';
+import { User } from '../user.model';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-signup',
@@ -15,11 +16,11 @@ export class SignupComponent implements OnInit {
 
   maxDate;
   isLoading$: Observable<boolean>;
-  private loadingSubs = new Subscription;
+  userToSave: User;
 
   constructor(
     private authService: AuthService,
-    private uiService: uiService,
+    private db: AngularFirestore,
     private store: Store
     ) { }
 
@@ -35,5 +36,4 @@ export class SignupComponent implements OnInit {
       password: form.value.password
     });
   }
-
 }

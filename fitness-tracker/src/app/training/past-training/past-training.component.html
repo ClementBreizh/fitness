@@ -45,21 +45,10 @@
 
     <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Status
+            Réussi
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
             {{ element.state }}
-        </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="edit">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Supprimer
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <button (click)="deletePast(element.id)" mat-icon-button>
-                <mat-icon class="icon-menu">delete</mat-icon>
-            </button>
         </mat-cell>
     </ng-container>
 

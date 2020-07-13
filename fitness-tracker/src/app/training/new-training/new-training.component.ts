@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
   templateUrl: './new-training.component.html',
   styleUrls: ['./new-training.component.css']
 })
-export class NewTrainingComponent implements OnInit, OnDestroy, OnDestroy {
+export class NewTrainingComponent implements OnInit, OnDestroy {
 
   exercises: Exercise[];
   exercisesSubscription = new Subscription;

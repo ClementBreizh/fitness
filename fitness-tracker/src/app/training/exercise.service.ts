@@ -1,8 +1,8 @@
 import { Exercise } from "./exercise.model";
 import { Subject, Subscription } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
-import { map } from "rxjs/operators/map";
+import { AngularFireDatabase } from "angularfire2/database";
+import { map } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { uiService } from '../utils/utils-ui-service';
 
@@ -16,6 +16,8 @@ export class ExerciseService {
     private availableExercises: Exercise[] = [];
     private runningExercise: Exercise;
     private fdSubs: Subscription[] = [];
+    private itemsRef;
+    private items;
 
     constructor(
         private db: AngularFirestore, 
@@ -30,8 +32,9 @@ export class ExerciseService {
                 return docArray.map(doc => {
                     return {
                         id: doc.payload.doc.id,
-                        name: doc.payload.doc.data()['name'],
-                        duration: doc.payload.doc.data()['duration']
+                        ...doc.payload.doc.data() as Exercise
+                        // name: doc.payload.doc.data()['name'],
+                        // duration: doc.payload.doc.data()['duration']
                     };
                 });
             })).subscribe((exercises: Exercise[]) => {
@@ -60,7 +63,7 @@ export class ExerciseService {
                 ...this.runningExercise,
                 duration: this.runningExercise.duration,
                 date: new Date(),
-                state: 'fini',
+                state: 'oui',
                 minutes: minutes,
                 secondes: secondes
             }
@@ -74,7 +77,7 @@ export class ExerciseService {
             {
                 ...this.runningExercise,
                 date: new Date(),
-                state: 'annulé',
+                state: 'non',
                 minutes: minutes,
                 secondes: secondes
             }
@@ -94,20 +97,6 @@ export class ExerciseService {
 
     private addDataToDatabase(exercise: Exercise) {
         this.db.collection('pastExercices').add(exercise);
-    }
-
-
-    // TODO : pourquoi ca ne fonctionne pas ????
-    deletePastExercice(id: string) {
-        this.db.collection('pastExercices').doc(id).delete()
-            .then(function () {
-                console.log("Success");
-            }).catch(function (error) {
-                console.error("epic fail", error);
-            });
-        
-        this.af.object('/pastExercices/' + id).remove();
-
     }
 
     cancelSubscription() {
