@@ -17,3 +17,7 @@ a:hover, a:active {
     display: inline-block;
     padding-right: 10px;
 }
+
+.login_signup-button {
+    background-color: rgb(152, 211, 157);
+}

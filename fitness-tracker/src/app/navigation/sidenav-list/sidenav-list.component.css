@@ -6,3 +6,7 @@ a {
 a:hover, a:active {
     color: lightpink;
 }
+
+mat-nav-list {
+    background-color: whitesmoke;
+}

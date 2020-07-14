@@ -1,5 +1,10 @@
 mat-sidenav-container, mat-sidenav-content, mat-sidenav {
     height: 100%;
+    /* background-color: gainsboro; */
+    background-image: url(image.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
 }
 
 mat-sidenav {

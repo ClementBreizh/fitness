@@ -4,20 +4,20 @@
             <mat-icon>menu</mat-icon>
         </button>
     </div>
-    <div>Fitness-Tracking</div>
+    <div>Suivi-Fitness</div>
     <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
         <ul fxLayout fxLayoutGap="10px" class="navigation-items">
             <li *ngIf="!(isAuth$ | async)">
-                <a routerLink="/signup">Inscription</a>
+                <button class="login_signup-button" mat-raised-button ><a routerLink="/signup">Inscription</a></button>
             </li>
             <li *ngIf="!(isAuth$ | async)">
-                <a routerLink="/login">Connexion</a>
+                <button class="login_signup-button" mat-raised-button ><a routerLink="/login">Connexion</a></button>
             </li>
+            <!-- <li *ngIf="(isAuth$ | async)">
+                <button class="login_signup-button" mat-raised-button ><a routerLink="/training">Entrainement</a></button>
+            </li> -->
             <li *ngIf="(isAuth$ | async)">
-                <a routerLink="/training">Entrainement</a>
-            </li>
-            <li *ngIf="(isAuth$ | async)">
-                <a (click)="onLogout()">Déconnexion</a>
+                <button class="login_signup-button" mat-raised-button ><a (click)="onLogout()">Déconnexion</a></button>
             </li>
         </ul>
     </div>

@@ -33,7 +33,7 @@
       <a href="#">Termes et conditions d'utilisation.</a>
     </mat-checkbox>
 
-    <button *ngIf="!(isLoading$ | async)" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Envoyer</button>
+    <button *ngIf="!(isLoading$ | async)" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Créer le compte</button>
     <mat-spinner *ngIf="(isLoading$ | async)"></mat-spinner>
   </form>
 </section>

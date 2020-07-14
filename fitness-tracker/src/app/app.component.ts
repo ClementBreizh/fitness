@@ -7,7 +7,7 @@ import { AuthService } from "./auth/auth.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'fitness-tracker';
+  title = 'Suivi-Fitness';
 
   constructor(private authService: AuthService) { }
 
