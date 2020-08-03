@@ -4,14 +4,9 @@
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: "AIzaSyBycdyTintpFQOv2IXvDDreQ_pCyAU8kbo",
-    authDomain: "suivi-fitness.firebaseapp.com",
-    databaseURL: "https://suivi-fitness.firebaseio.com",
-    projectId: "suivi-fitness",
-    storageBucket: "suivi-fitness.appspot.com",
-    messagingSenderId: "992525536186",
-  }
+  /*
+  * insert your firebase config here
+  */
 };
 
 /*
